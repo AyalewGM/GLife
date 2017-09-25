@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+		
+<html>
+<head>
+	<title>Game Of Life</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="game2.js"></script>
+	<script type="text/javascript" src="player.js"></script>
+	<script type="text/javascript" src="touchScreen.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript">
+		function run() {
+			gameOfLife.spaceship = new gameOfLife.game(50);
+
+			gameOfLife.spaceship.cells[0][2].alive = true;
+			gameOfLife.spaceship.cells[1][3].alive = true;
+			gameOfLife.spaceship.cells[2][1].alive = true;
+			gameOfLife.spaceship.cells[2][2].alive = true;
+			gameOfLife.spaceship.cells[2][3].alive = true;
+			
+			gameOfLife.station = new gameOfLife.player(gameOfLife.spaceship, [new gameOfLife.touchScreen()]);
+			gameOfLife.station.on();
+		}
+	</script>
+</head>
+<body class="lab" onload="run();">
+
+<h1>Game of Life </h1>
+<h2> Maharishi University of Management </h2>
+
+<!--
+<div class="viewport">
+	<div id="header">
+		<a class="logo" href="http://www.bjelic.net/">
+			<img alt="bjelic.net logo" src="http://www.bjelic.net/favicon.png">
+			<span class="blog-name">bjelic.net</span>
+		</a>
+	</div>
+</div> -->
+
+<div class="demo viewport clearfix" style="margin-top: 18px;">
+
+	<div id="simpleRenderer" class="clearfix"></div>
+
+	<form id="test" class="clearfix" action="" onsubmit="return false;">
+		<fieldset>
+			<div class="buttons">
+				<input type="button" name="next" value="next step" onclick="gameOfLife.station.step()" />  
+				<input type="button" name="play" value="play" onclick="gameOfLife.station.play()" />
+				<input type="button" name="stop" value="stop" onclick="gameOfLife.station.stop()" />  
+				<input type="button" name="rnd" value="random" onclick="gameOfLife.station.stop(); gameOfLife.randomize(gameOfLife.spaceship); gameOfLife.station.step()" />
+			</div>
+		</fieldset>
+	</form>
+	 
+	
+</div> 
+</body>
+</html>
