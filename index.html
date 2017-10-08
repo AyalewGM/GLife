@@ -1,185 +1,138 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- The new doctype -->
 <html>
-<title>MUM Deaprtment of Mathematics </title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body>
-
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
-    <a href="#home" class="w3-bar-item w3-button">Maharishi University of Management </a>
-    <!-- Float links to the right. Hide them on small screens -->
-    <div class="w3-right w3-hide-small">
-      <a href="/GL/index.html">Game of Life </a>
-
-      <a href="#projects" class="w3-bar-item w3-button">Game of Life </a>
-      <a href="#about" class="w3-bar-item w3-button">About</a>
-      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+    <head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>Department of Mathematics</title>
+        
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/0.1/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+        
+        
+    </head>
+    
+    <body>
+    	
+    	<section id="page">  
+    
+            <header>  
+            <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="img/photo.jpg" alt="Maharishi" style="width:120px;height:100px;">
+        </div>
+        <div class="col-md-8">
+            <hgroup>
+                    <h1>MUM Department of Mathematics</h1>
+                    <h3>Geometry for Art Demo page</h3>
+            </hgroup> 
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Header -->
-<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-  <img class="w3-image" src="/w3images/architect.jpg" alt="Architecture" width="1500" height="800">
-  <div class="w3-display-middle w3-margin-top w3-center">
-    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>BR</b></span> <span class="w3-hide-small w3-text-light-grey">Architects</span></h1>
-  </div>
-</header>
+                
+                                
+                <nav class="clear"> <!-- The nav link semantically marks your main site navigation -->
+                    <ul>
+                        <li><a href="GL/index.html">Game Of Life</a></li>
+                        <li><a href="Manibrot/index.html">Mandelbrot Set</a></li>
+                        <li><a href="#article3">About this course</a></li>
+                    </ul>
+                </nav>
+            
+            </header>
+            
+            <section id="articles"> <!-- A new section with the articles -->
 
-<!-- Page content -->
-<div class="w3-content w3-padding" style="max-width:1564px">
+				<!-- Article 1 start -->
 
-  <!-- Project Section -->
-  <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
-  </div>
+                <div class="line"></div>  <!-- Dividing line -->
+                
+                <article id="article1"> <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
+                    <h2>Mandelbrot Set</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">
+                    
+                    	<figure> <!-- The figure tag marks data (usually an image) that is part of the article -->
+	                    	<a href="https://en.wikipedia.org/wiki/Mandelbrot_set"><img src="https://en.wikipedia.org/wiki/Mandelbrot_set#/media/File:Mandel_zoom_00_mandelbrot_set.jpg" width="620" height="340" /></a>
+                        </figure>
+                        
+                        <p> Mandelbrot set has a few mathematically fascinating properties. Its complicated structure demonstrates what mathematicians mean by chaos: points very close to each other can have dramatically different behavior, and around the edges of the set, it’s basically impossible to predict whether a point is going to go one way or another. It also has surprising and interesting connections to other fractals called Julia sets. </p> Taken from scientific American Blog
+                    </div>
+                </article>
+                
+				<!-- Article 1 end -->
 
-  <div class="w3-row-padding">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Summer House</div>
-        <img src="/w3images/house5.jpg" alt="House" style="width:100%">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Brick House</div>
-        <img src="/w3images/house2.jpg" alt="House" style="width:100%">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Renovated</div>
-        <img src="/w3images/house3.jpg" alt="House" style="width:100%">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Barn House</div>
-        <img src="/w3images/house4.jpg" alt="House" style="width:100%">
-      </div>
-    </div>
-  </div>
 
-  <div class="w3-row-padding">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Summer House</div>
-        <img src="/w3images/house2.jpg" alt="House" style="width:99%">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Brick House</div>
-        <img src="/w3images/house5.jpg" alt="House" style="width:99%">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Renovated</div>
-        <img src="/w3images/house4.jpg" alt="House" style="width:99%">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Barn House</div>
-        <img src="/w3images/house3.jpg" alt="House" style="width:99%">
-      </div>
-    </div>
-  </div>
+				<!-- Article 2 start -->
 
-  <!-- About Section -->
-  <div class="w3-container w3-padding-32" id="about">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-      occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat.
-    </p>
-  </div>
+                <div class="line"></div>
+                
+                <article id="article2">
+                    <h2>Game of Life </h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">
+                    	<figure>
+	                    	<a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><img src="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#/media/File:Gospers_glider_gun.gif" width="620" height="340" /></a>
+                        </figure>
+                        
+                        <p>The game of life is the best-known two-dimensional cellular automaton, invented by John H. Conway and popularized in Martin Gardner's Scientific American column starting in October 1970. The game of life was originally played (i.e., successive generations were produced) by hand with counters, but implementation on a computer greatly increased the ease of exploring patterns.
 
-  <div class="w3-row-padding w3-grayscale">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <img src="/w3images/team2.jpg" alt="John" style="width:100%">
-      <h3>John Doe</h3>
-      <p class="w3-opacity">CEO & Founder</p>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
-      <h3>Jane Doe</h3>
-      <p class="w3-opacity">Architect</p>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <img src="/w3images/team3.jpg" alt="Mike" style="width:100%">
-      <h3>Mike Ross</h3>
-      <p class="w3-opacity">Architect</p>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <img src="/w3images/team4.jpg" alt="Dan" style="width:100%">
-      <h3>Dan Star</h3>
-      <p class="w3-opacity">Architect</p>
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-    </div>
-  </div>
+The life cellular automaton is run by placing a number of filled cells on a two-dimensional grid. Each generation then switches cells on or off depending on the state of the cells that surround it. The rules are defined as follows. All eight of the cells surrounding the current one are checked to see if they are on or not. Any cells that are on are counted, and this count is then used to determine what will happen to the current cell.
 
-  <!-- Contact Section -->
-  <div class="w3-container w3-padding-32" id="contact">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
-    <p>Lets get in touch and talk about your and our next project.</p>
-    <form action="/action_page.php" target="_blank">
-      <input class="w3-input" type="text" placeholder="Name" required name="Name">
-      <input class="w3-input w3-section" type="text" placeholder="Email" required name="Email">
-      <input class="w3-input w3-section" type="text" placeholder="Subject" required name="Subject">
-      <input class="w3-input w3-section" type="text" placeholder="Comment" required name="Comment">
-      <button class="w3-button w3-black w3-section" type="submit">
-        <i class="fa fa-paper-plane"></i> SEND MESSAGE
-      </button>
-    </form>
-  </div>
-  
-<!-- End page content -->
-</div>
+1. Death: if the count is less than 2 or greater than 3, the current cell is switched off.
 
-<!-- Google Map -->
-<div id="googleMap" class="w3-grayscale" style="width:100%;height:450px;"></div>
+2. Survival: if (a) the count is exactly 2, or (b) the count is exactly 3 and the current cell is on, the current cell is left unchanged.
 
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-</footer>
+3. Birth: if the current cell is off and the count is exactly 3, the current cell is switched on. </p>
+                    </div>
+                </article>
+                
+				<!-- Article 2 end -->
 
-<!-- Add Google Maps -->
-<script>
-function myMap()
-{
-  myCenter=new google.maps.LatLng(41.878114, -87.629798);
-  var mapOptions= {
-    center:myCenter,
-    zoom:12, scrollwheel: false, draggable: false,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
+				<!-- Article 3 start -->
 
-  var marker = new google.maps.Marker({
-    position: myCenter,
-  });
-  marker.setMap(map);
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-<!--
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
--->
+                <div class="line"></div>
+                
+                <article id="article3">
+                    <h2>About This Course</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">
+                    	<figure>
+	                    	<a href="http://tutorialzine.com/2010/01/halftone-navigation-menu-jquery-css/"><img src="http://tutorialzine.com/img/featured/610.jpg" width="620" height="340" /></a>
+                        </figure>
+                        
+                        <p>Coming soon </p>
+                    </div>
+                </article>
+                
+				<!-- Article 3 end -->
 
-</body>
+
+            </section>
+
+        <footer> <!-- Marking the footer section -->
+
+           <div class="line"></div>
+           
+           <p>Copyright 2017 - Ayalew Mersha</p> <!-- Change the copyright notice -->
+                
+
+        </footer>
+            
+		</section> <!-- Closing the #page section -->
+        
+        <!-- JavaScript Includes -->
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script src="jquery.scrollTo-1.4.2/jquery.scrollTo-min.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>

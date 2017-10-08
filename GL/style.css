@@ -6,9 +6,9 @@ body {
 
 background-color: #fff; 
 background-image: 
-linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+linear-gradient(90deg, transparent 90px, #abced4 90px, #abced4 81px, transparent 81px),
  
- linear-gradient(#eee .1em, transparent .1em);
+ linear-gradient(#eee .09em, transparent .1em);
  
 
 background-size: 100% 1.2em;
@@ -61,6 +61,7 @@ input {
 	border: 0 none;
 	padding: 5px;  
 	*/ 
+float:center;
 	 width: 110px !important;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 17px;
@@ -106,7 +107,7 @@ background: -moz-linear-gradient(
 }
 
 #simpleRenderer {
-	float: left;
+	float: center;
 	font-family: monospace; 
 	line-height: 5px;
 	font-size: 5px;
@@ -146,7 +147,7 @@ background: -moz-linear-gradient(
 	clear: left;
 }
 
-
+ 
 
 .clearfix:before,
 .clearfix:after {
