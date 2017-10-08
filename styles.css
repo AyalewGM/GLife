@@ -144,7 +144,7 @@ nav ul li a:visited{
 
 nav ul li a:hover{
 	text-decoration:none;
-	background-color:#f0f0f0;
+	background-color:#53f442; /*#f0f0f0;*/
 }
 
 nav, article, nav ul li a,figure{
