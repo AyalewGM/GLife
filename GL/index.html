@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<script type="text/javascript">
 		function run() {
-			gameOfLife.spaceship = new gameOfLife.game(55);
+			gameOfLife.spaceship = new gameOfLife.game(58);
 
 			gameOfLife.spaceship.cells[0][2].alive = true;
 			gameOfLife.spaceship.cells[1][3].alive = true;
@@ -91,9 +91,9 @@
 </div> -->
 
 <div class="demo viewport clearfix" style="margin-top: 18px;">
-
+<figure>
 	<div id="simpleRenderer" class="clearfix"></div>
-
+	
 	<form id="test" class="clearfix" action="" onsubmit="return false;">
 		<fieldset>
 			<div class="buttons">
@@ -105,7 +105,32 @@
 		</fieldset>
 	</form>
 	 
-	
+</figure>
+ 
+<p>Conway’s Game of Life gives an example of self-interacting dynamics giving rise to complex structure. Start with an initial pattern and then keep applying four rules of self-interaction—and see what happens!</p>
+ <p>
+The universe of the Game of Life is an infinite two-dimension grid of square cells. Each cell is either alive or dead. At each step of life, every cell interacts with its eight neighbors, horizontally, vertically, or diagonally.  </p>
+<p>
+The interactions follow the following rules:
+<ol>
+<li>  Any live cell with one or zero live neighbors dies, caused by under-population. </li>
+<li>  Any live cell with two or three live neighbors lives on to the next generation.</li>
+<li>   Any live cell with more than three live neighbors dies by over-population.</li>
+<li>  Any dead cell with exactly three live neighbors becomes a live cell by reproduction.</li>
+ </ol>
+The initial pattern constitutes the seed of the system. Apply these rules simultaneously to every cell in the seed to get the first generation. Do this again to get the second generation. Repeat to create each further generation. 
+ </p>
+ <p>
+Start with a simple initial patterns and see what happens. Then create more complex patterns and see what you get.
+</p>
+ 
+ <p>
+The figure shows a simplified implementation of Game of life. You can experminet it yourselves. You can either start with the given cell  by clicking on "play" or you can manually add more cells by clicking on the grid and click play. But before adding make sure that you click on "stop" to stop the current running instance.   You can click on "next step" to see the next iteration. Make sure to stop the application manually otherwise it will run forever.   
+
+
+ </p>
+ 
 </div> 
+
 </body>
 </html>
