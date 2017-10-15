@@ -34,10 +34,10 @@ var workers;
       workers = [];
       workerCount = count;
       for (i = 0; i < workerCount; i++) {
-         //workers[i] = new Worker("https://github.com/AyalewGM/GLife/blob/master/Manibrot/Mandelbrotworker.js");
-         //workers[i] = new Worker();
-        ///workers[i].onmessage = jobFinished;
-        logMsg();
+         workers[i] = new Worker("Mandelbrotworker.js");
+       //  workers[i] = new Worker();
+        workers[i].onmessage = jobFinished;
+         
       }
    }
    

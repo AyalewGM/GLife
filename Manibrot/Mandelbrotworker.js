@@ -31,9 +31,3 @@ onmessage = function(msg) {
       iterationCounts: counts
    } );
 }
-
-//testing
-
-funtion logMsg(){
-   console.log("working");
-}
