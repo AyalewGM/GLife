@@ -73,11 +73,12 @@ h2{
 	text-transform:uppercase;
 }
 
-p{
+p, li, ul{
 	line-height:1.5em;
 	padding-bottom:1em;
 	font-size: 1.3em;
 }
+
 
 .line{
 	/* The dividing line: */
