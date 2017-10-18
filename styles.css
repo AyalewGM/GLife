@@ -72,14 +72,14 @@ h2{
 	letter-spacing:0.01em;
 	text-transform:uppercase;
 }
-
+/*
 p, li, ul{
 	line-height:1.5em;
 	padding-bottom:1em;
 	font-size: 1.3em;
 }
 
-
+*/
 .line{
 	/* The dividing line: */
 	height:1px;
