@@ -1,7 +1,17 @@
 ## Game of Life 
 
-This is simple web application that Simulating the Game of Life
+This is simple web application demonstrates 
+1.  Simulating the Game of Life
+2. Mandelbort sets 
 
-#Background story  
 
-In 1970, mathematician John H. Conway proposed a simulation that he called the Game of Life. This web application demonstrates his simulations. 
+This web app is developed primarly to help students so that they understand Mandelbrot sets and Game of life. 
+
+
+If you want to know more about Mandelbrot set read this Wikipedia page.
+https://en.wikipedia.org/wiki/Mandelbrot_set
+
+
+
+
+For Conway's Game of life please read https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
