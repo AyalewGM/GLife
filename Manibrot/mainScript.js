@@ -1,192 +1,199 @@
-var workers;
-   var wokerCount;
-   var jobNum = 0;
+class MandelbrotApp {
+   constructor() {
+      this.workers = null;
+      this.workerCount = 0;
+      this.jobNum = 0;
+      
+      this.running = false;
+      this.repaintTimeout = null;
+      
+      this.xmin = 0;
+      this.ymin = 0;
+      this.xmax = 0;
+      this.ymax = 0;
+      this.dx = 0;
+      this.dy = 0;
+      
+      this.jobs = [];
+      this.jobsCompleted = 0;
+      
+      this.OSC = null;  // Off-screen canvas, holds the the Mandelbrot set.
+      this.OSG = null;  // Graphics context for off-screen canvas.
+      this.canvas = null;    // On-screen canvas -- shows OSC, with stuff possibly drawn on top.
+      this.graphics = null;  // Graphics context for on-screen canvas.
+      
+      this.dragbox = null;
+      
+      this.maxIterations = 100;
+      this.stretchPalette = true;
+      this.fixedPaletteLength = 250;
+      this.paletteLength = 0;
+      this.palette = [];
+   }
    
-   var running = false;
-   var repaintTimeout;
-   
-   var xmin, ymin, xmax, ymax;
-   var dx, dy;
-   
-   var jobs;
-   var jobsCompleted;
-   
-   var OSC;  // Off-screen canvas, holds the the Mandelbrot set.
-   var OSG;  // Graphics context for on-screen canvas.
-   var canvas;    // On-screen canvas -- shows OSC, with stuff possibly drawn on top.
-   var graphics;  // Graphics context for on-screen canvas.
-   
-   var dragbox = null;
-   
-   var maxIterations;
-   var stretchPalette = true;
-   var fixedPaletteLength = 250;
-   var paletteLength;
-   var palette;
-   
-   function newWorkers(count) {
+   newWorkers(count) {
       var i;
-      if (workers) {
-         for (i = 0; i < workerCount; i++) {
-            workers[i].terminate();
+      if (this.workers) {
+         for (i = 0; i < this.workerCount; i++) {
+            this.workers[i].terminate();
          }
       }
-      workers = [];
-      workerCount = count;
-      for (i = 0; i < workerCount; i++) {
-         workers[i] = new Worker("Mandelbrotworker.js");
-       //  workers[i] = new Worker();
-        workers[i].onmessage = jobFinished;
+      this.workers = [];
+      this.workerCount = count;
+      for (i = 0; i < this.workerCount; i++) {
+         this.workers[i] = new Worker("Mandelbrotworker.js");
+       //  this.workers[i] = new Worker();
+        this.workers[i].onmessage = (msg) => this.jobFinished(msg);
          
       }
    }
    
-   function setLimits(x1, x2, y1, y2) {
-      xmin = x1;
-      xmax = x2;
-      ymin = y1;
-      ymax = y2;
-      if (xmax < xmin) {
-         var temp = xmin;
-         xmin = xmax;
-         xmax = temp;
+   setLimits(x1, x2, y1, y2) {
+      this.xmin = x1;
+      this.xmax = x2;
+      this.ymin = y1;
+      this.ymax = y2;
+      if (this.xmax < this.xmin) {
+         var temp = this.xmin;
+         this.xmin = this.xmax;
+         this.xmax = temp;
       }
-      if (ymax < ymin) {
-         var temp = ymax;
-         ymax = ymin;
-         ymin = temp;
+      if (this.ymax < this.ymin) {
+         var temp = this.ymax;
+         this.ymax = this.ymin;
+         this.ymin = temp;
       }
-      var width = xmax - xmin;
-      var height = ymax - ymin;
+      var width = this.xmax - this.xmin;
+      var height = this.ymax - this.ymin;
       var aspect = width/height;
-      var windowAspect = canvas.width / canvas.height;
+      var windowAspect = this.canvas.width / this.canvas.height;
       if (aspect < windowAspect) {
          var newWidth = width*windowAspect/aspect;
-         var center = (xmax + xmin)/2;
-         xmax = center + newWidth/2;
-         xmin = center - newWidth/2;
+         var center = (this.xmax + this.xmin)/2;
+         this.xmax = center + newWidth/2;
+         this.xmin = center - newWidth/2;
       }
       else if (aspect > windowAspect) {
          var newHeight = height*aspect/windowAspect;
-         var center = (ymax+ymin)/2;
-         ymax = center + newHeight/2;
-         ymin = center - newHeight/2;
+         var center = (this.ymax+this.ymin)/2;
+         this.ymax = center + newHeight/2;
+         this.ymin = center - newHeight/2;
       }
-      dx = (xmax - xmin) / (canvas.width - 1);
-      dy = (ymax - ymin) / (canvas.height - 1);
+      this.dx = (this.xmax - this.xmin) / (this.canvas.width - 1);
+      this.dy = (this.ymax - this.ymin) / (this.canvas.height - 1);
    }
    
-   function doDraw() {
-      graphics.drawImage(OSC,0,0);
-      if (dragbox && dragbox.width > 2 && dragbox.height > 2) {
-         dragbox.draw();
+   doDraw() {
+      this.graphics.drawImage(this.OSC,0,0);
+      if (this.dragbox && this.dragbox.width > 2 && this.dragbox.height > 2) {
+         this.dragbox.draw(this.graphics);
       }
    }
    
-   function repaint() {
-      doDraw();
-      if (running) {
-         repaintTimeout = setTimeout(repaint, 500);
-         $("#message").html("Computing...  Completed " + jobsCompleted + " of " + canvas.height + " rows");
+   repaint() {
+      this.doDraw();
+      if (this.running) {
+         this.repaintTimeout = setTimeout(() => this.repaint(), 500);
+         $("#message").html("Computing...  Completed " + this.jobsCompleted + " of " + this.canvas.height + " rows");
       }
       else {
           $("#message").html("Idle");
       }
    }
    
-   function stopJob() {
-       if (running) {
-          jobNum++;
-          running = false;
-          if (repaintTimeout)
-             clearTimeout(repaintTimeout);
-          repaintTimeout = null;
-          repaint();
+   stopJob() {
+       if (this.running) {
+          this.jobNum++;
+          this.running = false;
+          if (this.repaintTimeout)
+             clearTimeout(this.repaintTimeout);
+          this.repaintTimeout = null;
+          this.repaint();
        }
    }
    
-   function startJob() {
-       if (running)
-          stopJob();
-       graphics.fillRect(0,0,canvas.width,canvas.height);
-       OSG.fillStyle="#BBB";
-       OSG.fillRect(0,0,canvas.width,canvas.height);
-       jobs = [];
-       var y = ymax;
-       var rows = canvas.height;
-       var columns = canvas.width;
+   startJob() {
+       if (this.running)
+          this.stopJob();
+       this.graphics.fillRect(0,0,this.canvas.width,this.canvas.height);
+       this.OSG.fillStyle="#BBB";
+       this.OSG.fillRect(0,0,this.canvas.width,this.canvas.height);
+       this.jobs = [];
+       var y = this.ymax;
+       var rows = this.canvas.height;
+       var columns = this.canvas.width;
        for ( var row = 0; row < rows; row++) {
-          jobs[rows - 1- row] = { 
-              jobNum: jobNum,
+          this.jobs[rows - 1- row] = { 
+              jobNum: this.jobNum,
               row: row,
-              maxIterations: maxIterations,
+              maxIterations: this.maxIterations,
               y: y,
-              xmin: xmin,
+              xmin: this.xmin,
               columns: columns,
-              dx: dx
+              dx: this.dx
           };
-          y -= dy;
+          y -= this.dy;
        }
-       jobsCompleted = 0;
-       for (var i = 0; i < workerCount; i++) {
-          var j = jobs.pop();
+       this.jobsCompleted = 0;
+       for (var i = 0; i < this.workerCount; i++) {
+          var j = this.jobs.pop();
           j.workerNum = i;
-          workers[i].postMessage(j);
+          this.workers[i].postMessage(j);
        }
-       running = true;
+       this.running = true;
        $("#message").html("Computing...");
-       repaintTimeout = setTimeout(repaint,333);
+       this.repaintTimeout = setTimeout(() => this.repaint(),333);
     }
     
-    function jobFinished(msg) {
-       job = msg.data;
-        if (job.jobNum != jobNum)
+   jobFinished(msg) {
+       var job = msg.data;
+        if (job.jobNum != this.jobNum)
           return;
        var iterationCounts = job.iterationCounts;
        var row = job.row;
-       var columns = canvas.width;
+       var columns = this.canvas.width;
        for (var col = 0; col < columns; col++) {
           var ct = iterationCounts[col];
           var paletteIndex;
           if (ct < 0)
-             OSG.fillStyle = "#000";
+             this.OSG.fillStyle = "#000";
           else {
-             paletteIndex = iterationCounts[col] % paletteLength;
-             OSG.fillStyle = palette[paletteIndex];
+             paletteIndex = iterationCounts[col] % this.paletteLength;
+             this.OSG.fillStyle = this.palette[paletteIndex];
           }
-          OSG.fillRect(col,row,1,1);
+          this.OSG.fillRect(col,row,1,1);
        }
-       jobsCompleted++;
-       if (jobsCompleted == canvas.height)
-          stopJob();
-       else if (jobs.length > 0) {
-          var worker = workers[job.workerNum];
-          var j = jobs.pop();
+       this.jobsCompleted++;
+       if (this.jobsCompleted == this.canvas.height)
+          this.stopJob();
+       else if (this.jobs.length > 0) {
+          var worker = this.workers[job.workerNum];
+          var j = this.jobs.pop();
           j.workerNum = job.workerNum;
           worker.postMessage(j);
        }
     }
    
-   function setDefaults() {
-      stopJob();
-      setLimits(-2.2,0.8,-1.2,1.2);
-      stretchPalette = true;
-      fixedPaletteLength = 250;
-      maxIterations = 100;
-      createPalette();
+   setDefaults() {
+      this.stopJob();
+      this.setLimits(-2.2,0.8,-1.2,1.2);
+      this.stretchPalette = true;
+      this.fixedPaletteLength = 250;
+      this.maxIterations = 100;
+      this.createPalette();
       $("#stretchPaletteCheckbox").attr("checked", true);
       $("#paletteLengthPar").css("display","none");
       $("#maxIterSelect").val(100);
       $("#otherMaxIter").html("&nbsp;");
       $("#paletteLengthSelect").val("250");
       $("#otherPaletteLength").html("&nbsp;");
-      startJob();
+      this.startJob();
    }
    
-   function makeSpectralColor(hue) {
+   makeSpectralColor(hue) {
       var section = Math.floor(hue*6);
       var fraction = hue*6 - section;
-      var rgb;
+      var r, g, b;
       switch (section) {
       case 0:
          r = 1;
@@ -232,130 +239,71 @@ var workers;
       return color;
    }
    
-   function createPalette() {
-      var length = stretchPalette ? maxIterations : fixedPaletteLength;
-      if (length == paletteLength)
+   createPalette() {
+      var length = this.stretchPalette ? this.maxIterations : this.fixedPaletteLength;
+      if (length == this.paletteLength)
          return;
-      paletteLength = length;
-      palette = [];
-      for (var i = 0; i < paletteLength; i++) {
-          var hue = i / paletteLength
-          palette[i] = makeSpectralColor(hue);
+      this.paletteLength = length;
+      this.palette = [];
+      for (var i = 0; i < this.paletteLength; i++) {
+          var hue = i / this.paletteLength
+          this.palette[i] = this.makeSpectralColor(hue);
       }
    }
-   
-   function DragBox(x,y) {
-      this.x = this.left = x;
-      this.y = this.top = y;
-      this.width = 0;
-      this.height = 0;
-   }
-   DragBox.prototype.draw = function() {  // Draw the box on the on-screen canvas
-      graphics.strokeStyle = "#FFF";
-      graphics.strokeRect(this.left-1,this.top-1,this.width+1,this.height+1);
-      graphics.strokeRect(this.left+1,this.top+1,this.width-3,this.height-3);
-      graphics.strokeStyle = "#000";
-      graphics.strokeRect(this.left,this.top,this.width-1,this.height-1);
-   }
-   DragBox.prototype.setCorner = function(x1,y1) {
-      if (x1 <= this.x) {
-         this.left = x1;
-         this.width = this.x - x1;
-      }
-      else {
-         this.left = this.x;
-         this.width = x1 - this.x;
-      }
-      if (y1 <= this.y) {
-         this.top = y1;
-         this.height = this.y - y1;
-      }
-      else {
-         this.top = this.y;
-         this.height = y1 - this.y;
-      }
-   }
-   DragBox.prototype.zoom = function(zoomin) {
-      if (this.width <= 2 || this.height <= 2)
-         return;
-      stopJob();
-      var x1, x2, y1, y2;  // coordinates of corners of zoombox
-      var cx, cy;   // coordinates of center of zoombox
-      var newWidth, newHeight;
-      x1 = xmin + this.left/canvas.width*(xmax-xmin);
-      x2 = xmin + (this.left+this.width)/canvas.width*(xmax-xmin);
-      y1 = ymax - (this.top+this.height)/canvas.height*(ymax-ymin);
-      y2 = ymax - this.top/canvas.height*(ymax-ymin);
-      cx = (x1+x2)/2;
-      cy = (y1+y2)/2;
-      if (zoomin == false) { 
-         var newXmin = xmin + (xmin-x1)/(x2-x1)*(xmax-xmin);
-         var newXmax = xmin + (xmax-x1)/(x2-x1)*(xmax-xmin);
-         var newYmin = ymin + (ymin-y1)/(y2-y1)*(ymax-ymin);
-         var newYmax = ymin + (ymax-y1)/(y2-y1)*(ymax-ymin);
-         setLimits(newXmin,newXmax,newYmin,newYmax);
-      }
-      else {
-         newWidth = x2 - x1;
-         newHeight = y2 - y1;
-         setLimits( cx-newWidth/2, cx+newWidth/2, cy-newHeight/2, cy+newHeight/2 ); 
-      }
-      startJob();
-   }
-   
-   function setUpDragging() {
+
+   setUpDragging() {
       var zoomin;
-      dragbox = null;  // initially, the mouse is not being dragged.
-      $("#mbcanvas").mousedown(function(e){
-           if (dragbox || e.button != 0)
+      this.dragbox = null;  // initially, the mouse is not being dragged.
+      $("#mbcanvas").mousedown((e) => {
+           if (this.dragbox || e.button != 0)
               return;
            var offset = $("#mbcanvas").offset();
            var x = Math.round(e.pageX - offset.left);
            var y = Math.round(e.pageY - offset.top);
-           dragbox = new DragBox(x,y);
+           this.dragbox = new DragBox(x,y);
            zoomin = !e.shiftKey;
-           doDraw();
+           this.doDraw();
       });
-      $("#mbcanvas").mousemove(function(e){
-          if (dragbox) {
+      $("#mbcanvas").mousemove((e) => {
+          if (this.dragbox) {
               var offset = $("#mbcanvas").offset();
               var x = Math.round(e.pageX - offset.left);
               var y = Math.round(e.pageY - offset.top);
-              dragbox.setCorner(x,y);
-              doDraw();
+              this.dragbox.setCorner(x,y);
+              this.doDraw();
           }
       });
-      $(document).mouseup(function() {
+      $(document).mouseup(() => {
             // This is called when the mouse is released anywhere in the document.  This
             // is attached to the document, not the canvas, because the mouseup after a
             // mousedown on the canvas can occur anywhere.  (Actually, a saner langauge 
             // would send the mouseup to the same object that got the mousedown, but
             // javascript/jquery doesn't seem to do that.)
-         if (dragbox) {
-            dragbox.zoom(zoomin);
-            dragbox = null;
+         if (this.dragbox) {
+            this.dragbox.zoom(zoomin, this);
+            this.dragbox = null;
          }
       });
    }
-   
-   function changeWorkerCount() {
+
+   changeWorkerCount() {
       var ct = parseInt($("#threadCountSelect").val())
-      if (ct == workerCount)
+      if (ct == this.workerCount)
          return;
-      stopJob();
-      newWorkers(ct);
-      startJob();
+      this.stopJob();
+      this.newWorkers(ct);
+      this.startJob();
    }
-   
-   function changeMaxIterations() {
+
+   changeMaxIterations() {
       var val = $("#maxIterSelect").val();
       var iter;
       if (val == "Other...") {
-         val = prompt("Enter the maximum number of iterations", maxIterations);
+         val = prompt("Enter the maximum number of iterations", this.maxIterations);
          iter = parseInt(val);
          if (isNaN(iter) || iter < 1 || iter > 100000) {
             alert("Sorry, the value must be a positive integer, and not more than 100000.");
-            $("#maxIterSelect").val(maxIterations);
+            $("#maxIterSelect").val(this.maxIterations);
             return;
          }
          $("#otherMaxIter").html("(" + iter +")")
@@ -364,37 +312,35 @@ var workers;
          iter = parseInt(val);
          $("#otherMaxIter").html("&nbsp;");
       }
-      if (iter == maxIterations)
+      if (iter == this.maxIterations)
          return;
-      maxIterations = iter;
-      createPalette();
-      startJob();
+      this.maxIterations = iter;
+      this.createPalette();
+      this.startJob();
    }
-   
-   
-   function changeStretchPalette() {
+
+   changeStretchPalette() {
       var checked = $("#stretchPaletteCheckbox").attr("checked");
-      if (stretchPalette == checked)
+      if (this.stretchPalette == checked)
          return;
-      stretchPalette = checked;
-      var newPaletteLength = stretchPalette ? maxIterations : fixedPaletteLength;
-      $("#paletteLengthPar").css( "display", stretchPalette? "none" : "block" );
-      if (newPaletteLength != paletteLength) {
-         createPalette();
-         startJob();
+      this.stretchPalette = checked;
+      var newPaletteLength = this.stretchPalette ? this.maxIterations : this.fixedPaletteLength;
+      $("#paletteLengthPar").css( "display", this.stretchPalette? "none" : "block" );
+      if (newPaletteLength != this.paletteLength) {
+         this.createPalette();
+         this.startJob();
       }
    }
-   
-   
-   function changePaletteLength() {
+
+   changePaletteLength() {
       var val = $("#paletteLengthSelect").val();
       var len;
       if (val == "Other...") {
-         val = prompt("Enter the palette length.", fixedPaletteLength);
+         val = prompt("Enter the palette length.", this.fixedPaletteLength);
          len = parseInt(val);
          if (isNaN(len) || len < 2 || len > 100000) {
             alert("Sorry, the value must be an integer, between 2 and 100000");
-            $("#paletteLengthSelect").val(fixedPaletteLength);
+            $("#paletteLengthSelect").val(this.fixedPaletteLength);
             return;
          }
          $("#otherPaletteLength").html("(" + len +")")
@@ -403,45 +349,112 @@ var workers;
          len = parseInt(val);
          $("#otherPaletteLength").html("&nbsp;");
       }
-      if (len == fixedPaletteLength)
+      if (len == this.fixedPaletteLength)
          return;
-      fixedPaletteLength = len;
-      if (fixedPaletteLength != paletteLength) {
-         createPalette();
-         startJob();
+      this.fixedPaletteLength = len;
+      if (this.fixedPaletteLength != this.paletteLength) {
+         this.createPalette();
+         this.startJob();
       }
    }
-      
-    
-   $(function() {
+
+   initialize() {
       if ( ! window.Worker ) {
          $("#message").html("Sorry, your browser does not support worker threads.<br>"
                + "This page should work with recent versions of Firefox, Safari,<br>"
                + "Chrome, and Opera.  It will probably work in Internet Explorer 10.");
          return;
       }
-      canvas = document.getElementById("mbcanvas");
-      if (! canvas ||  ! canvas.getContext ) {
+      this.canvas = document.getElementById("mbcanvas");
+      if (! this.canvas ||  ! this.canvas.getContext ) {
          $("#message").html("Sorry, your browser doesn't support the canvas element.");
          return;
       }
-      graphics = canvas.getContext("2d");
-      OSC = document.createElement("canvas");
-      OSC.width = canvas.width;
-      OSC.height = canvas.height;
-      OSG = OSC.getContext("2d");
-      graphics.fillStyle = "#BBB";
-      createPalette();
-      newWorkers(4);
-      $("#restoreButton").click(setDefaults);
+      this.graphics = this.canvas.getContext("2d");
+      this.OSC = document.createElement("canvas");
+      this.OSC.width = this.canvas.width;
+      this.OSC.height = this.canvas.height;
+      this.OSG = this.OSC.getContext("2d");
+      this.graphics.fillStyle = "#BBB";
+      this.createPalette();
+      this.newWorkers(4);
+      $("#restoreButton").click(() => this.setDefaults());
       $("#threadCountSelect").val("4");
-      $("#threadCountSelect").change(changeWorkerCount);
+      $("#threadCountSelect").change(() => this.changeWorkerCount());
       $("#maxIterSelect").val("100");
-      $("#maxIterSelect").change(changeMaxIterations);
+      $("#maxIterSelect").change(() => this.changeMaxIterations());
       $("#stretchPaletteCheckbox").attr("checked", true);
-      $("#stretchPaletteCheckbox").change(changeStretchPalette);
-      $("#paletteLengthSelect").val(fixedPaletteLength);
-      $("#paletteLengthSelect").change(changePaletteLength);
-      setUpDragging();
-      setDefaults();
-   });
+      $("#stretchPaletteCheckbox").change(() => this.changeStretchPalette());
+      $("#paletteLengthSelect").val(this.fixedPaletteLength);
+      $("#paletteLengthSelect").change(() => this.changePaletteLength());
+      this.setUpDragging();
+      this.setDefaults();
+   }
+   
+}
+
+function DragBox(x,y) {
+   this.x = this.left = x;
+   this.y = this.top = y;
+   this.width = 0;
+   this.height = 0;
+}
+DragBox.prototype.draw = function(graphics) {  // Draw the box on the on-screen canvas
+   graphics.strokeStyle = "#FFF";
+   graphics.strokeRect(this.left-1,this.top-1,this.width+1,this.height+1);
+   graphics.strokeRect(this.left+1,this.top+1,this.width-3,this.height-3);
+   graphics.strokeStyle = "#000";
+   graphics.strokeRect(this.left,this.top,this.width-1,this.height-1);
+}
+DragBox.prototype.setCorner = function(x1,y1) {
+   if (x1 <= this.x) {
+      this.left = x1;
+      this.width = this.x - x1;
+   }
+   else {
+      this.left = this.x;
+      this.width = x1 - this.x;
+   }
+   if (y1 <= this.y) {
+      this.top = y1;
+      this.height = this.y - y1;
+   }
+   else {
+      this.top = this.y;
+      this.height = y1 - this.y;
+   }
+}
+DragBox.prototype.zoom = function(zoomin, app) {
+   if (this.width <= 2 || this.height <= 2)
+      return;
+   app.stopJob();
+   var x1, x2, y1, y2;  // coordinates of corners of zoombox
+   var cx, cy;   // coordinates of center of zoombox
+   var newWidth, newHeight;
+   x1 = app.xmin + this.left/app.canvas.width*(app.xmax-app.xmin);
+   x2 = app.xmin + (this.left+this.width)/app.canvas.width*(app.xmax-app.xmin);
+   y1 = app.ymax - (this.top+this.height)/app.canvas.height*(app.ymax-app.ymin);
+   y2 = app.ymax - this.top/app.canvas.height*(app.ymax-app.ymin);
+   cx = (x1+x2)/2;
+   cy = (y1+y2)/2;
+   if (zoomin == false) { 
+      var newXmin = app.xmin + (app.xmin-x1)/(x2-x1)*(app.xmax-app.xmin);
+      var newXmax = app.xmin + (app.xmax-x1)/(x2-x1)*(app.xmax-app.xmin);
+      var newYmin = app.ymin + (app.ymin-y1)/(y2-y1)*(app.ymax-app.ymin);
+      var newYmax = app.ymin + (app.ymax-y1)/(y2-y1)*(app.ymax-app.ymin);
+      app.setLimits(newXmin,newXmax,newYmin,newYmax);
+   }
+   else {
+      newWidth = x2 - x1;
+      newHeight = y2 - y1;
+      app.setLimits( cx-newWidth/2, cx+newWidth/2, cy-newHeight/2, cy+newHeight/2 ); 
+   }
+   app.startJob();
+}
+// Global app instance
+var mandelbrotApp;
+
+$(function() {
+   mandelbrotApp = new MandelbrotApp();
+   mandelbrotApp.initialize();
+});
