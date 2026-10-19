@@ -1,16 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { cpSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 
-// Preserve the original mathematical engines and their relative asset paths
-// until each experiment receives a separately tested React implementation.
+const root = fileURLToPath(new URL('.', import.meta.url))
+
+// Preserve original mathematical engines and relative assets for this migration.
 function copyLegacyLabs() {
   return {
     name: 'copy-legacy-labs',
     closeBundle() {
       for (const folder of ['GL', 'Manibrot', 'img']) {
-        cpSync(resolve(__dirname, folder), resolve(__dirname, 'dist', folder), { recursive: true })
+        cpSync(resolve(root, folder), resolve(root, 'dist', folder), { recursive: true })
       }
     }
   }
