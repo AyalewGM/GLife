@@ -1,148 +1,35 @@
-<!DOCTYPE html> <!-- The new doctype -->
-<html>
-    <head>
-    
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        
-        <title>Department of Mathematics</title>
-        
-        <link rel="stylesheet" type="text/css" href="styles.css" />
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/0.1/MathJax.js?config=TeX-MML-AM_CHTML'></script>
-        
-        
-    </head>
-    
-    <body>
-    	
-    	<section id="page">  
-    
-            <header>  
-            <div class="container">
-    <div class="row">
-        <div class="col-md-2" style="float:left; width:15%">
-            <img src="img/photo.jpg" alt="Maharishi" style="width:120px;height:100px;">
-        </div>
-        <div class="col-md-10" style="float:left">
-            <hgroup>
-                    <h1>Maharishi University of Management </h1>
-                    <h1>Department of Mathematics</h1>
-                    <h3>Geometry for Art Demo page</h3>
-            </hgroup> 
-        </div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the beauty of mathematics through Conway's Game of Life and the Mandelbrot set. Interactive geometry and art experiments.">
+  <meta name="theme-color" content="#0b1020">
+  <title>Geometry Lab — Mathematics in Motion</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell nav-row">
+      <a class="brand" href="index.html" aria-label="Geometry Lab home"><span class="brand-symbol" aria-hidden="true">✳</span><span>geometry<span class="brand-accent">lab</span><small>MATHEMATICS × ART</small></span></a>
+      <nav aria-label="Main navigation"><a href="#explore">Experiments</a><a href="#about">About the course</a><a class="nav-cta" href="GL/index.html">Open the lab <span aria-hidden="true">↗</span></a></nav>
     </div>
-</div>
-
-                
-                                
-                <nav class="clear"> <!-- The nav link semantically marks your main site navigation -->
-                    <ul>
-                        <li><a href="GL/index.html">Game Of Life</a></li>
-                        <li><a href="Manibrot/index.html">Mandelbrot Set</a></li>
-                        <li><a href="#article3">About this course</a></li>
-                    </ul>
-                </nav>
-            
-            </header>
-            
-            <section id="articles"> <!-- A new section with the articles -->
-
-				<!-- Article 1 start -->
-
-                <div class="line"></div>  <!-- Dividing line -->
-                
-                <article id="article1"> <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-                    <h2>Mandelbrot Set</h2>
-                    
-                    <div class="line"></div>
-                    
-                    <div class="articleBody clear">
-                    
-                    	<figure> <!-- The figure tag marks data (usually an image) that is part of the article -->
-	                    	<a href="https://en.wikipedia.org/wiki/Mandelbrot_set"><img src="img/800px-Mandel_zoom_00_mandelbrot_set.jpg" width="620" height="340" /></a>
-                        </figure>
-                        
-                        <p> Mandelbrot set has a few mathematically fascinating properties. Its complicated structure demonstrates what mathematicians mean by chaos: points very close to each other can have dramatically different behavior, and around the edges of the set, it’s basically impossible to predict whether a point is going to go one way or another. It also has surprising and interesting connections to other fractals called Julia sets. </p> Taken from scientific American Blog
-                    </div>
-                </article>
-                
-				<!-- Article 1 end -->
-
-
-				<!-- Article 2 start -->
-
-                <div class="line"></div>
-                
-                <article id="article2">
-                    <h2>Game of Life </h2>
-                    
-                    <div class="line"></div>
-                    
-                    <div class="articleBody clear">
-                    	<figure>
-	                    	<img src="img/gif2.gif" width="620" height="340" /></a>
-                        </figure>
-                        
-                        <p>The game of life is the best-known two-dimensional cellular automaton, invented by John H. Conway and popularized in Martin Gardner's Scientific American column starting in October 1970. The game of life was originally played (i.e., successive generations were produced) by hand with counters, but implementation on a computer greatly increased the ease of exploring patterns.
-
-The life cellular automaton is run by placing a number of filled cells on a two-dimensional grid. Each generation then switches cells on or off depending on the state of the cells that surround it. The rules are defined as follows. All eight of the cells surrounding the current one are checked to see if they are on or not. Any cells that are on are counted, and this count is then used to determine what will happen to the current cell.
-
-1. Death: if the count is less than 2 or greater than 3, the current cell is switched off.
-
-2. Survival: if (a) the count is exactly 2, or (b) the count is exactly 3 and the current cell is on, the current cell is left unchanged.
-
-3. Birth: if the current cell is off and the count is exactly 3, the current cell is switched on. </p>
-                    </div>
-                </article>
-                
-				<!-- Article 2 end -->
-
-				<!-- Article 3 start -->
-
-                <div class="line"></div>
-                
-                <article id="article3">
-                    <h2>About This Course</h2>
-                    
-                    <div class="line"></div>
-                    
-                    <div class="articleBody clear">
-                    	<figure>
-	                    	<a href="https://www.mum.edu/"><img src="img/index.jpg" width="620" height="340" /></a>
-                        </figure>
-                        
-                        <h3>Course Goals </h3>
-                        <p> Geometry is the study of shapes and the spaces that contain them. In this course, we will study many different areas of geometry and their application to the visual arts-how they can help us to understand art and how they are used to create art. You will:</p>
-                        <ul>
-                            <li> learn about the properties of geometric shapes, particularly those used in art </li>
-                            <li> analyze geometry that is used in artwork </li>
-                            <li> justify the use of geomtry in an art to support the intention of the artist and your response to the work</li>
-                            <li>explain how the geomtry of an artwork contributes to the aethestic wholeness of the work</li>
-                            <li> create your own art using geomtry</li>  
-
-                        </ul>
-                    </div>
-                </article>
-                
-				<!-- Article 3 end -->
-
-
-            </section>
-
-        <footer> <!-- Marking the footer section -->
-
-           <div class="line"></div>
-           
-           <p>Copyright 2017 - Ayalew Mersha</p> <!-- Change the copyright notice -->
-                
-
-        </footer>
-            
-		</section> <!-- Closing the #page section -->
-        
-        <!-- JavaScript Includes -->
-        
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-        <script src="jquery.scrollTo-1.4.2/jquery.scrollTo-min.js"></script>
-        <script src="script.js"></script>
-    </body>
+  </header>
+  <main id="main">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy"><span class="eyebrow"><span class="pulse"></span> AN INTERACTIVE MATHEMATICS STUDIO</span><h1 id="hero-title">See the <em>extraordinary</em> in mathematics.</h1><p>From living patterns to infinite fractals, discover how simple mathematical ideas create astonishing visual worlds.</p><div class="hero-actions"><a class="button button-primary" href="#explore">Explore experiments <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#about">Discover the course <span aria-hidden="true">↓</span></a></div><div class="hero-note"><span class="note-icon" aria-hidden="true">✦</span> Learn by experimenting. No setup required.</div></div>
+      <div class="hero-art" aria-label="Mandelbrot fractal preview"><img src="img/800px-Mandel_zoom_00_mandelbrot_set.jpg" alt="Colorful Mandelbrot fractal with intricate repeating edges"><div class="art-tag"><span class="tag-dot"></span> THE MANDELBROT SET <span>∞</span></div></div>
+    </section>
+    <section class="stats-band" aria-label="Lab highlights"><div class="shell stats"><div><strong>02</strong><span>Interactive experiments</span></div><div><strong>∞</strong><span>Possibilities to explore</span></div><div><strong>01</strong><span>Curiosity-driven approach</span></div></div></section>
+    <section id="explore" class="shell explore section-space" aria-labelledby="explore-title"><div class="section-heading"><div><span class="eyebrow">YOUR EXPLORATION STARTS HERE</span><h2 id="explore-title">Choose your experiment<span class="period">.</span></h2></div><p>Two fascinating mathematical worlds, ready to explore at your own pace.</p></div>
+      <div class="experiment-grid">
+        <article class="experiment-card"><a class="image-link" href="GL/index.html" aria-label="Launch Conway's Game of Life"><img src="img/gif2.gif" alt="Animated cellular automaton patterns evolving on a grid" loading="lazy"><span class="image-badge">01 / CELLULAR AUTOMATA</span></a><div class="card-content"><div class="card-kicker">PATTERNS · EMERGENCE · LOGIC</div><h3>Conway's Game of Life</h3><p>Build living patterns and watch them evolve. Discover how four simple rules can create surprisingly complex behavior.</p><a class="card-link" href="GL/index.html">Launch simulation <span aria-hidden="true">↗</span></a></div></article>
+        <article class="experiment-card"><a class="image-link" href="Manibrot/index.html" aria-label="Launch Mandelbrot explorer"><img src="img/800px-Mandel_zoom_00_mandelbrot_set.jpg" alt="Colorful Mandelbrot set fractal with detailed spirals" loading="lazy"><span class="image-badge">02 / FRACTAL GEOMETRY</span></a><div class="card-content"><div class="card-kicker">FRACTALS · INFINITY · COMPLEXITY</div><h3>The Mandelbrot Set</h3><p>Zoom into the boundaries of infinity. Explore an endlessly detailed universe created by a remarkably simple equation.</p><a class="card-link" href="Manibrot/index.html">Explore the fractal <span aria-hidden="true">↗</span></a></div></article>
+      </div>
+    </section>
+    <section id="about" class="about-wrap section-space"><div class="shell about-grid"><div class="about-intro"><span class="eyebrow">WHERE MATHEMATICS MEETS CREATIVITY</span><h2>Art has a language.<br><em>It's geometry.</em></h2><p>This teaching project grew out of a Geometry for Art course at Maharishi University of Management. It invites students to observe, question, and create through mathematical exploration.</p><a href="GL/index.html" class="text-link">Start experimenting <span aria-hidden="true">→</span></a></div><div class="learning-card"><div class="learning-title"><span aria-hidden="true">✳</span> WHAT YOU'LL DISCOVER</div><ul><li><span>01</span> Recognize geometric patterns in art and nature</li><li><span>02</span> Investigate how simple rules produce complexity</li><li><span>03</span> Explain the mathematical ideas behind visual designs</li><li><span>04</span> Create and experiment with your own patterns</li></ul></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><a class="brand footer-brand" href="index.html"><span class="brand-symbol" aria-hidden="true">✳</span><span>geometry<span class="brand-accent">lab</span></span></a><p>Created by Ayalew Mersha · An interactive geometry and art project</p><a href="#main">Back to top ↑</a></div></footer>
+</body>
 </html>
