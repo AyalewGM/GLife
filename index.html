@@ -1,35 +1,14 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore the beauty of mathematics through Conway's Game of Life and the Mandelbrot set. Interactive geometry and art experiments.">
-  <meta name="theme-color" content="#0b1020">
-  <title>Geometry Lab — Mathematics in Motion</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="shell nav-row">
-      <a class="brand" href="index.html" aria-label="Geometry Lab home"><span class="brand-symbol" aria-hidden="true">✳</span><span>geometry<span class="brand-accent">lab</span><small>MATHEMATICS × ART</small></span></a>
-      <nav aria-label="Main navigation"><a href="#explore">Experiments</a><a href="#about">About GLife</a><a class="nav-cta" href="GL/index.html">Open the lab <span aria-hidden="true">↗</span></a></nav>
-    </div>
-  </header>
-  <main id="main">
-    <section class="hero shell" aria-labelledby="hero-title">
-      <div class="hero-copy"><span class="eyebrow"><span class="pulse"></span> AN INTERACTIVE MATHEMATICS STUDIO</span><h1 id="hero-title">See the <em>extraordinary</em> in mathematics.</h1><p>From living patterns to infinite fractals, discover how simple mathematical ideas create astonishing visual worlds.</p><div class="hero-actions"><a class="button button-primary" href="#explore">Explore experiments <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#about">About this project <span aria-hidden="true">↓</span></a></div><div class="hero-note"><span class="note-icon" aria-hidden="true">✦</span> Learn by experimenting. No setup required.</div></div>
-      <div class="hero-art" aria-label="Mandelbrot fractal preview"><img src="img/800px-Mandel_zoom_00_mandelbrot_set.jpg" alt="Colorful Mandelbrot fractal with intricate repeating edges"><div class="art-tag"><span class="tag-dot"></span> THE MANDELBROT SET <span>∞</span></div></div>
-    </section>
-    <section class="stats-band" aria-label="Lab highlights"><div class="shell stats"><div><strong>02</strong><span>Interactive experiments</span></div><div><strong>∞</strong><span>Possibilities to explore</span></div><div><strong>01</strong><span>Curiosity-driven approach</span></div></div></section>
-    <section id="explore" class="shell explore section-space" aria-labelledby="explore-title"><div class="section-heading"><div><span class="eyebrow">YOUR EXPLORATION STARTS HERE</span><h2 id="explore-title">Choose your experiment<span class="period">.</span></h2></div><p>Two fascinating mathematical worlds, ready to explore at your own pace.</p></div>
-      <div class="experiment-grid">
-        <article class="experiment-card"><a class="image-link" href="GL/index.html" aria-label="Launch Conway's Game of Life"><img src="img/gif2.gif" alt="Animated cellular automaton patterns evolving on a grid" loading="lazy"><span class="image-badge">01 / CELLULAR AUTOMATA</span></a><div class="card-content"><div class="card-kicker">PATTERNS · EMERGENCE · LOGIC</div><h3>Conway's Game of Life</h3><p>Build living patterns and watch them evolve. Discover how four simple rules can create surprisingly complex behavior.</p><a class="card-link" href="GL/index.html">Launch simulation <span aria-hidden="true">↗</span></a></div></article>
-        <article class="experiment-card"><a class="image-link" href="Manibrot/index.html" aria-label="Launch Mandelbrot explorer"><img src="img/800px-Mandel_zoom_00_mandelbrot_set.jpg" alt="Colorful Mandelbrot set fractal with detailed spirals" loading="lazy"><span class="image-badge">02 / FRACTAL GEOMETRY</span></a><div class="card-content"><div class="card-kicker">FRACTALS · INFINITY · COMPLEXITY</div><h3>The Mandelbrot Set</h3><p>Zoom into the boundaries of infinity. Explore an endlessly detailed universe created by a remarkably simple equation.</p><a class="card-link" href="Manibrot/index.html">Explore the fractal <span aria-hidden="true">↗</span></a></div></article>
-      </div>
-    </section>
-    <section id="about" class="about-wrap section-space"><div class="shell about-grid"><div class="about-intro"><span class="eyebrow">WHERE MATHEMATICS MEETS CREATIVITY</span><h2>Art has a language.<br><em>It's geometry.</em></h2><p>GLife is an independent interactive mathematics playground. Explore visual patterns, experiment with simple rules, and discover how mathematics connects with art and creativity.</p><a href="GL/index.html" class="text-link">Start experimenting <span aria-hidden="true">→</span></a></div><div class="learning-card"><div class="learning-title"><span aria-hidden="true">✳</span> WHAT YOU'LL DISCOVER</div><ul><li><span>01</span> Recognize geometric patterns in art and nature</li><li><span>02</span> Investigate how simple rules produce complexity</li><li><span>03</span> Explain the mathematical ideas behind visual designs</li><li><span>04</span> Create and experiment with your own patterns</li></ul></div></div></section>
-  </main>
-  <footer class="site-footer"><div class="shell footer-inner"><a class="brand footer-brand" href="index.html"><span class="brand-symbol" aria-hidden="true">✳</span><span>geometry<span class="brand-accent">lab</span></span></a><p>Created by Ayalew Mersha · An interactive geometry and art project</p><a href="#main">Back to top ↑</a></div></footer>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a1020" />
+    <meta name="description" content="GLife is an independent interactive mathematics lab. Explore Conway's Game of Life and the Mandelbrot set." />
+    <title>GLife — Interactive Mathematics Lab</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
