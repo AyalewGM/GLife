@@ -1,15 +1,18 @@
- 
-## Game of Life 
+# GLife — Historical Archive
 
+> **This project has moved to two independent React applications.** The original GLife code is preserved here for historical reference and is no longer the active development home.
 
-This is simple web application demonstrates 
-1. Simulating the Game of Life
-2. Mandelbort sets 
+| Application | Source repository | Live demo |
+| --- | --- | --- |
+| Conway's Game of Life | [game-of-life](https://github.com/AyalewGM/game-of-life) | [Launch Game of Life](https://ayalewgm.github.io/game-of-life/) |
+| Mandelbrot Set Explorer | [mandelbrot-explorer](https://github.com/AyalewGM/mandelbrot-explorer) | [Explore Mandelbrot](https://ayalewgm.github.io/mandelbrot-explorer/) |
 
-This web app is developed primarly to help students so that they understand Mandelbrot sets and Game of life easily. Please visit https://ayalewgm.github.io/GLife/  to see the web app in action.  
+Both successor projects have their own React + TypeScript codebases, mathematical explanations, tests, and GitHub Pages deployments.
 
-If you want to know more about Mandelbrot set read this Wikipedia page.
-https://en.wikipedia.org/wiki/Mandelbrot_set
+## About this repository
 
+GLife originally brought together two mathematical demonstrations: **Conway's Game of Life** and the **Mandelbrot set**. The applications have now been separated for independent maintenance and development.
 
-For Conway's Game of life please read https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+**For current functionality, documentation, and issues, please use the successor repositories above.**
+
+Original project by Ayalew Mersha.
